@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "bc5c8c99-bcea-4f79-ab6c-945d8ae6fc32",
+		"name": "Medicamentos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24891246"
+	},
+	"item": [
+		{
+			"name": "NewMed",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Lab\": \"Cinfa\",\r\n    \"Composition\": \"Paracetamol 20mg, Codeina 10mg\",\r\n    \"Name\": \"CodeFeralgan\",\r\n    \"Units\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/newMed",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"newMed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ListMed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/listMed",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"listMed"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditMed",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Lab\": \"Cinfa\",\r\n    \"Composition\": \"Paracetamol 20mg, Codeina 10mg\",\r\n    \"Name\": \"Paracetamol\",\r\n    \"Units\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/EditNews/1",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"EditNews",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteMed",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/DelNews/1",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"DelNews",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "http://localhost:4000",
+			"type": "string"
+		}
+	]
+}
