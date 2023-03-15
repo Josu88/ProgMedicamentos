@@ -36,10 +36,10 @@ app.post("/newMed", newMed);
 app.get("/listMed", listMed);
 
 // Editar una Medicina
-app.put("/EditNews/:idMed", editMed);
+app.put("/EditMed/:idMed", editMed);
 
 // Borrar una Medicina
-app.delete("/DelNews/:idMed", deleteMed);
+app.delete("/DelMed/:idMed", deleteMed);
 
 // Importamos las variables de entorno que hemos creado para la conexión
 const { Port } = process.env;
