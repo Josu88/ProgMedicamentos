@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFilterThemeNewsService } from "../services";
+import { getFilterLabMedService } from "../services";
 
 const useFilterMeds = (Lab) => {
   const [med, setMed] = useState([]);
@@ -10,7 +10,8 @@ const useFilterMeds = (Lab) => {
     const loadNews = async () => {
       try {
         setLoading(true);
-        const data = await getFilterThemeNewsService(Lab);
+
+        const data = await getFilterLabMedService(Lab);
 
         setMed(data);
       } catch (error) {

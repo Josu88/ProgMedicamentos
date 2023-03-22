@@ -56,7 +56,7 @@ export const deleteMedService = async ({ id }) => {
 
 export const editMedService = async ({ id, Lab, Composition, Name, Units }) => {
   const response = await fetch(
-    `${process.env.REACT_APP_BACKEND}/EditNed/${id}`,
+    `${process.env.REACT_APP_BACKEND}/EditMed/${id}`,
     {
       method: "PUT",
       body: JSON.stringify({ Lab, Composition, Name, Units }),
@@ -73,4 +73,34 @@ export const editMedService = async ({ id, Lab, Composition, Name, Units }) => {
   }
 
   return json.data;
+};
+
+export const addUnitsService = async ({ idMed }) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND}/addUnits/${idMed}`,
+    {
+      method: "POST",
+    }
+  );
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+};
+
+export const delUnitsService = async ({ idMed }) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND}/delUnits/${idMed}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
 };

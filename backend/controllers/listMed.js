@@ -31,7 +31,7 @@ const listMed = async (req, res, next) => {
     sqlQuery += " ORDER BY id DESC";
 
     // Recuperamos los datos de las noticias guardadas en la base de datos
-    const [med] = await connection.query(sqlQuery);
+    const [med] = await connection.query(sqlQuery, [Lab]);
 
     // Respondemos con las noticias del usuario
     res.send({

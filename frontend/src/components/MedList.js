@@ -1,7 +1,9 @@
-export const MedList = ({ Med, removeMed }) => {
-  return Med.length ? (
+import { Med } from "./Med";
+
+export const MedList = ({ Meds, removeMed }) => {
+  return Meds.length ? (
     <ul className="Med-list">
-      {Med.map((med) => {
+      {Meds.map((med) => {
         return (
           <li key={med.id}>
             <Med Med={med} removeMed={removeMed} />

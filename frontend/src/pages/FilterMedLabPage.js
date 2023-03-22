@@ -5,45 +5,51 @@ import useFilterMeds from "../hooks/useFilterMeds";
 import { MedList } from "../components/MedList";
 
 export const FilterMedLabPage = () => {
-  const [lab, setLab] = useState([]);
-  const { med } = useFilterMeds(lab);
+  const [Lab, setLab] = useState([]);
+  const { med } = useFilterMeds(Lab);
   const [visible, setVisible] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleForm = (e) => {
+  const handleForm = async (e) => {
     e.preventDefault();
-    getFilterLabMedService(lab);
+    try {
+      await getFilterLabMedService(Lab);
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
-    <>
-      <section>
-        <h2>Lista de Medicinas filtradas por Laboratorio</h2>
-        <form onSubmit={handleForm}>
-          <fieldset>
-            <label htmlFor="NewLab">Laboratorio a buscar?: </label>
-            <input
-              type="text"
-              id="inputLab"
-              value={lab}
-              onChange={(e) => setLab(e.target.value)}
-            />
-          </fieldset>
-          <fieldset>
-            <button className="view" onClick={() => setVisible(true)}>
-              Mostrar
-            </button>
-          </fieldset>
-        </form>
-        <h1>news</h1>
-        {visible ? (
-          <MedList Med={med} />
-        ) : (
-          `Pulsa el boton para ver las Medicinas`
-        )}
-        <nav>
-          <NavLink to={"/"}>HomePage</NavLink>
-        </nav>
-      </section>
-    </>
+    <section>
+      <h1 className="titleFilterMed">
+        Lista de Medicinas filtradas por Laboratorio
+      </h1>
+      <form onSubmit={handleForm} className="FormMedLab">
+        <fieldset>
+          <label className="important">Laboratorio a buscar?: </label>
+          <input
+            type="text"
+            id="inputLab"
+            value={Lab}
+            onChange={(e) => setLab(e.target.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <button className="ButtonForm" onClick={() => setVisible(true)}>
+            Mostrar
+          </button>
+        </fieldset>
+        {error ? <p>{error}</p> : null}
+      </form>
+      <h1>Lista de Medicinas</h1>
+      {visible ? (
+        <MedList Meds={med} />
+      ) : (
+        `Pulsa el boton para ver las Medicinas`
+      )}
+      <nav>
+        <NavLink to={"/"}>HomePage</NavLink>
+      </nav>
+    </section>
   );
 };

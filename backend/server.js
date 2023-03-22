@@ -26,6 +26,8 @@ const listMed = require("./controllers/listMed");
 const newMed = require("./controllers/newMed");
 const editMed = require("./controllers/editMed");
 const deleteMed = require("./controllers/deleteMed");
+const addUnits = require("./controllers/addUnits");
+const delUnits = require("./controllers/delUnits");
 
 /*   ### Endpoints ###  */
 
@@ -40,6 +42,12 @@ app.put("/EditMed/:idMed", editMed);
 
 // Borrar una Medicina
 app.delete("/DelMed/:idMed", deleteMed);
+
+// Añadir una unidad a la medicina
+app.post("/addUnits/:idMed", addUnits);
+
+// Borrar una unidad de la medicina
+app.delete("/delUnits/:idMed", delUnits);
 
 // Importamos las variables de entorno que hemos creado para la conexión
 const { Port } = process.env;

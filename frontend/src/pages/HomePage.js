@@ -1,13 +1,14 @@
 import { MedList } from "../components/MedList";
 import useMeds from "../hooks/useMeds";
+import { useState } from "react";
 
 export const HomePage = () => {
-  const { med, removeMed } = useMeds();
+  const [env] = useState(false);
+  const { med, removeMed } = useMeds(env);
 
   return (
     <section>
-      <h1>Medicinas:</h1>
-      <MedList med={med} removeMed={removeMed} />
+      <MedList Meds={med} removeMed={removeMed} />
     </section>
   );
 };

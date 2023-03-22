@@ -1,21 +1,29 @@
 import { useState } from "react";
 import { editMedService } from "../services";
+import { NavLink } from "react-router-dom";
+import useMeds from "../hooks/useMeds";
+import { MedList } from "../components/MedList";
+import { getAllMedService } from "../services";
 
-export const EditNewPage = () => {
+export const EditMedPage = () => {
   const [error, setError] = useState("");
   const [id, setId] = useState("");
-  const [lab, setLab] = useState("");
-  const [comp, setComp] = useState("");
-  const [name, setName] = useState("");
-  const [units, setUnits] = useState("");
+  const [Lab, setLab] = useState("");
+  const [Comp, setComp] = useState("");
+  const [Name, setName] = useState("");
+  const [Units, setUnits] = useState("");
   const [message, setMessage] = useState("");
+  const [env, setEnv] = useState(false);
+  const { med } = useMeds(env);
 
   const handleForm = async (e) => {
     e.preventDefault();
 
     try {
-      await editMedService({ id, lab, comp, name, units });
+      await getAllMedService();
+      await editMedService({ id, Lab, Comp, Name, Units });
       setMessage(`Se ha editado correctamente la medicina con id ${id}`);
+      setEnv(true);
     } catch (error) {
       setError(error.message);
       setMessage("");
@@ -23,9 +31,14 @@ export const EditNewPage = () => {
   };
   return (
     <section>
-      <form className="edit-news" onSubmit={handleForm}>
+      <h1 className="titleEditMed">Editar Medicina</h1>
+      <form className="edit-med" onSubmit={handleForm}>
         <fieldset>
-          <label htmlFor="idNew">Pon el id de la Medicina a modificar</label>
+          <label className="important">
+            Pon el id de la Medicina a modificar
+          </label>
+        </fieldset>
+        <fieldset>
           <input
             type="text"
             name="idNew"
@@ -36,15 +49,19 @@ export const EditNewPage = () => {
           />
         </fieldset>
         <fieldset>
-          <label htmlFor="datosNew">
+          <label className="important">
             Datos para introducir en la Medicina:
           </label>
+        </fieldset>
+        <fieldset>
           <label htmlFor="Lab">Lab</label>
+        </fieldset>
+        <fieldset>
           <input
             type="text"
             name="Lab"
             id="Lab"
-            value={lab}
+            value={Lab}
             required
             onChange={(e) => setLab(e.target.value)}
           />
@@ -52,11 +69,13 @@ export const EditNewPage = () => {
 
         <fieldset>
           <label htmlFor="comp">Composition</label>
+        </fieldset>
+        <fieldset>
           <input
             type="text"
             name="comp"
             id="comp"
-            value={comp}
+            value={Comp}
             required
             onChange={(e) => setComp(e.target.value)}
           />
@@ -64,11 +83,13 @@ export const EditNewPage = () => {
 
         <fieldset>
           <label htmlFor="Name">Name</label>
+        </fieldset>
+        <fieldset>
           <input
             type="text"
             name="Name"
             id="Name"
-            value={name}
+            value={Name}
             required
             onChange={(e) => setName(e.target.value)}
           />
@@ -76,21 +97,28 @@ export const EditNewPage = () => {
 
         <fieldset>
           <label htmlFor="Units">Units</label>
+        </fieldset>
+        <fieldset>
           <input
             type="text"
             name="Units"
             units
             id="Units"
-            value={units}
+            value={Units}
             required
             onChange={(e) => setUnits(e.target.value)}
           />
         </fieldset>
 
-        <button className="Edit">Edit</button>
+        <button className="ButtonForm">Edit</button>
         {error ? <p>{error}</p> : null}
         <p>{message}</p>
       </form>
+      <h1>Lista de Medicinas</h1>
+      <MedList Meds={med} />
+      <nav>
+        <NavLink to={"/"}>HomePage</NavLink>
+      </nav>
     </section>
   );
 };

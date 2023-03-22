@@ -1,7 +1,11 @@
 import "../App.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { deleteNewsService } from "../services";
+import {
+  deleteMedService,
+  addUnitsService,
+  delUnitsService,
+} from "../services";
 
 export const Med = ({ Med, removeMed }) => {
   const [error, setError] = useState("");
@@ -9,7 +13,7 @@ export const Med = ({ Med, removeMed }) => {
 
   const deleteMed = async (id) => {
     try {
-      await deleteNewsService({ id });
+      await deleteMedService({ id });
 
       if (removeMed) {
         removeMed(id);
@@ -21,28 +25,67 @@ export const Med = ({ Med, removeMed }) => {
     }
   };
 
+  const addUnit = async (id) => {
+    try {
+      const data = await addUnitsService({ id });
+
+      if (!data) {
+        navigate("/");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const delUnit = async (id) => {
+    try {
+      const data = await delUnitsService({ id });
+
+      if (!data) {
+        navigate("/");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const MedId = Med.id;
+
   return (
     <ul className="Med-list">
       <li>
-        <article className="Medicines">
-          <p>Id: {Med.id}</p>
+        <article className="Medicines" id={Med.id}>
           <p>Lab: {Med.Lab}</p>
           <p>Composition: {Med.Composition}</p>
           <p>Name: {Med.Name}</p>
           <p>Units: {Med.Units}</p>
-          <>
-            <span>
-              <button
-                className="DelButton"
-                onClick={() => {
-                  if (window.confirm("Are you sure?")) deleteMed(Med.id);
-                }}
-              >
-                Delete news
-              </button>
-            </span>
-            {error ? <p className="MenError">{error}</p> : null}
-          </>
+          <span className="ButtonBar">
+            <button
+              className="DelButton"
+              onClick={() => {
+                if (window.confirm("Are you sure?")) deleteMed({ MedId });
+              }}
+            >
+              Borrar
+            </button>
+            <button
+              className="addUnitButton"
+              onClick={() => {
+                addUnit({ MedId });
+              }}
+            >
+              +
+            </button>
+            <button
+              className="delUnitButton"
+              onClick={() => {
+                delUnit({ MedId });
+              }}
+            >
+              -
+            </button>
+          </span>
+          {error ? <p className="MenError">{error}</p> : null}
         </article>
       </li>
     </ul>
