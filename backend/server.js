@@ -20,37 +20,61 @@ app.use(morgan("dev"));
 // instalación -> npm i express-fileupload
 app.use(fileUpload());
 
-/*   ### Controladores ###  */
+/*   ### Controladores  Med ###  */
 
-const listMed = require("./controllers/listMed");
-const newMed = require("./controllers/newMed");
-const editMed = require("./controllers/editMed");
-const deleteMed = require("./controllers/deleteMed");
-const addUnits = require("./controllers/addUnits");
-const delUnits = require("./controllers/delUnits");
+const listMed = require("./controllers/Med/listMed");
+const newMed = require("./controllers/Med/newMed");
+const editMed = require("./controllers/Med/editMed");
+const deleteMed = require("./controllers/Med/deleteMed");
+const addUnits = require("./controllers/Med/addUnits");
+const delUnits = require("./controllers/Med/delUnits");
 
-/*   ### Endpoints ###  */
+/*   ### Controladores  Users ###  */
+
+const loginUser = require("./controllers/users/loginUser");
+const newUser = require("./controllers/users/newUser");
+const deleteUser = require("./controllers/users/deleteUser");
+
+/*   ### Endpoints Med ###  */
 
 // Registrar nueva Medicina
-app.post("/newMed", newMed);
+app.post("/newMed", isUser, newMed);
 
 // Listar todas las Medicinas
 app.get("/listMed", listMed);
 
 // Editar una Medicina
-app.put("/EditMed/:idMed", editMed);
+app.put("/EditMed/:idMed", isUser, canEditMed, editMed);
 
 // Borrar una Medicina
 app.delete("/DelMed/:idMed", deleteMed);
 
 // Añadir una unidad a la medicina
-app.post("/addUnits/:idMed", addUnits);
+app.post("/addUnits/:idMed", isUser, addUnits);
 
 // Borrar una unidad de la medicina
-app.delete("/delUnits/:idMed", delUnits);
+app.post("/delUnits/:idMed", isUser, delUnits);
+
+/*   ### Endpoints Users ###  */
+
+// Registro de usuario
+app.post("/register", newUser);
+
+// Login de usuario
+app.post("/login", loginUser);
+
+// Borrar un usuario
+app.delete("/user", isUser, deleteUser);
 
 // Importamos las variables de entorno que hemos creado para la conexión
 const { Port } = process.env;
+
+// Middleware de validación de usuario
+const { isAuth, isUser } = require("./middlewares/isAuth");
+const canEditMed = require("./middlewares/canEditMed");
+
+//Middleware por el qu pasa todas las peticiones
+app.use(isAuth);
 
 /*   ### Middlewares ###  */
 

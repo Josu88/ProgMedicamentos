@@ -7,27 +7,13 @@ import {
   delUnitsService,
 } from "../services";
 
-export const Med = ({ Med, removeMed }) => {
+export const Med = ({ Med }) => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const deleteMed = async (id) => {
+  const deleteMed = async ({ idMed }) => {
     try {
-      await deleteMedService({ id });
-
-      if (removeMed) {
-        removeMed(id);
-      } else {
-        navigate("/");
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const addUnit = async (id) => {
-    try {
-      const data = await addUnitsService({ id });
+      const data = await deleteMedService({ idMed });
 
       if (!data) {
         navigate("/");
@@ -37,9 +23,9 @@ export const Med = ({ Med, removeMed }) => {
     }
   };
 
-  const delUnit = async (id) => {
+  const addUnit = async ({ idMed }) => {
     try {
-      const data = await delUnitsService({ id });
+      const data = await addUnitsService({ idMed });
 
       if (!data) {
         navigate("/");
@@ -49,7 +35,19 @@ export const Med = ({ Med, removeMed }) => {
     }
   };
 
-  const MedId = Med.id;
+  const delUnit = async ({ idMed }) => {
+    try {
+      const data = await delUnitsService({ idMed });
+
+      if (!data) {
+        navigate("/");
+      }
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  let idMed = Med.id;
 
   return (
     <ul className="Med-list">
@@ -63,7 +61,7 @@ export const Med = ({ Med, removeMed }) => {
             <button
               className="DelButton"
               onClick={() => {
-                if (window.confirm("Are you sure?")) deleteMed({ MedId });
+                if (window.confirm("Are you sure?")) deleteMed({ idMed });
               }}
             >
               Borrar
@@ -71,7 +69,7 @@ export const Med = ({ Med, removeMed }) => {
             <button
               className="addUnitButton"
               onClick={() => {
-                addUnit({ MedId });
+                addUnit({ idMed });
               }}
             >
               +
@@ -79,7 +77,7 @@ export const Med = ({ Med, removeMed }) => {
             <button
               className="delUnitButton"
               onClick={() => {
-                delUnit({ MedId });
+                delUnit({ idMed });
               }}
             >
               -

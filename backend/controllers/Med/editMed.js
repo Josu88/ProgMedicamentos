@@ -1,7 +1,7 @@
-const getDB = require("../db/getDB");
-const { generateError, validateSchema } = require("../helpers");
-const newMedSchema = require("../schemas/newMedSchema");
-const idMedSchema = require("../schemas/idMedSchema");
+const getDB = require("../../db/getDB");
+const { generateError, validateSchema } = require("../../helpers");
+const newMedSchema = require("../../schemas/newMedSchema");
+const idMedSchema = require("../../schemas/idMedSchema");
 
 const editMed = async (req, res, next) => {
   let connection;
@@ -14,6 +14,9 @@ const editMed = async (req, res, next) => {
     // Validamos los datos que recuperamos en el cuerpo de la petición con el schema de idMedSchema
     await validateSchema(idMedSchema, req.params);
 
+    // Recuperamos el id del usuario logueado
+    const idUserAuth = req.userAuth.id;
+
     // Recuperamos el id de la noticia de los path params
     const { idMed } = req.params;
 
@@ -23,16 +26,16 @@ const editMed = async (req, res, next) => {
     // Seleccionamos los datos antiguos
     const [med] = await connection.query(
       `
-        SELECT Lab, Composition, Name, Units FROM Medicinas WHERE id = ?
+        SELECT Lab, Composition, Name, Units FROM Medicinas WHERE id = ? AND idUser = ?
         `,
-      [idMed]
+      [idMed, idUserAuth]
     );
     if (med.length < 1) {
       throw generateError("La Medicina que a modificado no existe", 400);
     }
     await connection.query(
       `
-        UPDATE Medicinas SET Lab = ?, Composition = ?, Name = ?, Units = ? WHERE id = ?
+        UPDATE Medicinas SET Lab = ?, Composition = ?, Name = ?, Units = ? WHERE id = ? AND idUser = ?
         `,
       [
         Lab || med[0].Lab,
@@ -40,6 +43,7 @@ const editMed = async (req, res, next) => {
         Name || med[0].Name,
         Units || med[0].Units,
         idMed,
+        idUserAuth,
       ]
     );
     res.send({

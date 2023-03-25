@@ -3,9 +3,9 @@
 */
 
 //Guardamos la conexion con la base de datos en una variable
-const getDB = require("../db/getDB");
-const { validateSchema } = require("../helpers");
-const filterMedSchema = require("../schemas/filterMedSchema");
+const getDB = require("../../db/getDB");
+const { validateSchema } = require("../../helpers");
+const filterMedSchema = require("../../schemas/filterMedSchema");
 
 // Creamos la funcion lita de Medicinas
 const listMed = async (req, res, next) => {

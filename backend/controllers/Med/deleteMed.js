@@ -1,6 +1,6 @@
-const getDB = require("../db/getDB");
-const { validateSchema } = require("../helpers");
-const idMedSchema = require("../schemas/idMedSchema");
+const getDB = require("../../db/getDB");
+const { validateSchema } = require("../../helpers");
+const idMedSchema = require("../../schemas/idMedSchema");
 
 const deleteMed = async (req, res, next) => {
   let connection;

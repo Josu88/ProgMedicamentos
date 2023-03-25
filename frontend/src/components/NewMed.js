@@ -1,6 +1,6 @@
 import "../App.css";
 import { useState } from "react";
-import { sendNewsService } from "../services";
+import { sendMedService } from "../services";
 
 export const NewMed = ({ newMed }) => {
   const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ export const NewMed = ({ newMed }) => {
     try {
       setLoading(true);
       const data = new FormData(e.target);
-      const response = await sendNewsService({ data });
+      const response = await sendMedService({ data });
 
       newMed(response);
 
@@ -25,7 +25,7 @@ export const NewMed = ({ newMed }) => {
   };
   return (
     <>
-      <h1>Añadir Medicina</h1>
+      <h1>Añadir Nueva Medicina</h1>
       <form className="new-Medicinas" onSubmit={handleForm}>
         <fieldset>
           <label htmlFor="Lab">Laboratorio</label>
@@ -34,7 +34,7 @@ export const NewMed = ({ newMed }) => {
 
         <fieldset>
           <label htmlFor="Composition">Composition</label>
-          <input type="text" name="Compostition" id="Composition" required />
+          <input type="text" name="Composition" id="Composition" required />
         </fieldset>
 
         <fieldset>
@@ -49,7 +49,7 @@ export const NewMed = ({ newMed }) => {
 
         <button className="send">enviar</button>
         {error ? <p>{error}</p> : null}
-        {loading ? <p>posting news...</p> : null}
+        {loading ? <p>posting Med...</p> : null}
       </form>
     </>
   );

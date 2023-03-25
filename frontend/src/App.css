@@ -25,7 +25,6 @@ main.app {
   text-align: center;
   color: #d9d9db;
   padding: 0.3rem;
-  margin-top: 1rem;
   margin-bottom: 2rem;
 }
 
@@ -57,7 +56,8 @@ h1.titleFilterMed {
 
 main.app form.FormAddMed,
 form.edit-med,
-form.FormMedLab {
+form.FormMedLab,
+form.new-Medicinas {
   background-color: darkkhaki;
   border: 0.2rem solid black;
   margin-bottom: 1rem;

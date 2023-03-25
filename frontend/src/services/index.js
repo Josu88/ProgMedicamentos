@@ -39,9 +39,9 @@ export const sendMedService = async ({ data }) => {
   return json.data;
 };
 
-export const deleteMedService = async ({ id }) => {
+export const deleteMedService = async ({ idMed }) => {
   const response = await fetch(
-    `${process.env.REACT_APP_BACKEND}/DelMed/${id}`,
+    `${process.env.REACT_APP_BACKEND}/DelMed/${idMed}`,
     {
       method: "DELETE",
     }
@@ -94,7 +94,7 @@ export const delUnitsService = async ({ idMed }) => {
   const response = await fetch(
     `${process.env.REACT_APP_BACKEND}/delUnits/${idMed}`,
     {
-      method: "DELETE",
+      method: "POST",
     }
   );
 
