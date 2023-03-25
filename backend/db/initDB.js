@@ -11,10 +11,21 @@ async function main() {
     console.log("Eliminando tablas en caso que existan...");
 
     await connection.query(`DROP TABLE IF EXISTS Medicinas`);
+    await connection.query(`DROP TABLE IF EXISTS user`);
 
     console.log("¡Tablas eliminadas!");
 
     console.log("Creando tablas...");
+
+    await connection.query(
+      `CREATE TABLE IF NOT EXISTS user (
+          id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+          username VARCHAR(100) NOT NULL,
+          email VARCHAR(255) UNIQUE NOT NULL,
+          password VARCHAR(255) NOT NULL,
+          registrationCode VARCHAR(250)      
+      )`
+    );
 
     await connection.query(
       `CREATE TABLE IF NOT EXISTS Medicinas (
@@ -22,11 +33,26 @@ async function main() {
                 Lab VARCHAR(100) ,
                 Composition VARCHAR(100) ,
                 Name VARCHAR(100) ,
-                Units INT 
+                Units INT,
+                idUser INT UNSIGNED NOT NULL,
+                FOREIGN KEY (idUser) REFERENCES user(id)
+                ON DELETE CASCADE
             )`
     );
 
     console.log("¡Tablas creadas!");
+
+    console.log("Insertando una Medicina de Prueba...");
+
+    await connection.query(
+      `INSERT INTO user (username, email, password)
+         VALUES ('Administrador', 'admin@gmail.com', '123')`
+    );
+
+    await connection.query(
+      `INSERT INTO Medicinas (Lab, Composition, Name,Units,idUser)
+         VALUES ('UPSA', '500 mg / 30 mg 20 Comp Eferv', 'COD-EFERALGAN','1','1')`
+    );
 
     console.log("¡Datos de prueba insertados con éxito!");
   } catch (error) {

@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS Medicinas;
-USE Medicinas;
+CREATE DATABASE IF NOT EXISTS farmacia;
+USE farmacia;
 
 select * from Medicinas;
 
