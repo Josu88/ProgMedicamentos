@@ -36,7 +36,7 @@ const newUser = require("./controllers/users/newUser");
 const deleteUser = require("./controllers/users/deleteUser");
 
 // Middleware de validación de usuario
-const { isAuth, isUser } = require("./middlewares/isAuth");
+const { isAuth } = require("./middlewares/isAuth");
 const canEditMed = require("./middlewares/canEditMed");
 
 // Importamos las variables de entorno que hemos creado para la conexión
@@ -45,22 +45,22 @@ const { Port } = process.env;
 /*   ### Endpoints Med ###  */
 
 // Registrar nueva Medicina
-app.post("/newMed", isUser, newMed);
+app.post("/newMed", isAuth, newMed);
 
 // Listar todas las Medicinas
 app.get("/listMed", listMed);
 
 // Editar una Medicina
-app.put("/EditMed/:idMed", isUser, canEditMed, editMed);
+app.put("/EditMed/:idMed", isAuth, canEditMed, editMed);
 
 // Borrar una Medicina
 app.delete("/DelMed/:idMed", deleteMed);
 
 // Añadir una unidad a la medicina
-app.post("/addUnits/:idMed", isUser, addUnits);
+app.post("/addUnits/:idMed", isAuth, addUnits);
 
 // Borrar una unidad de la medicina
-app.post("/delUnits/:idMed", isUser, delUnits);
+app.post("/delUnits/:idMed", isAuth, delUnits);
 
 /*   ### Endpoints Users ###  */
 
@@ -71,10 +71,7 @@ app.post("/register", newUser);
 app.post("/login", loginUser);
 
 // Borrar un usuario
-app.delete("/user", isUser, deleteUser);
-
-//Middleware por el qu pasa todas las peticiones
-app.use(isAuth);
+app.delete("/user", isAuth, deleteUser);
 
 /*   ### Middlewares ###  */
 

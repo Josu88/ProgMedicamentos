@@ -10,20 +10,29 @@ import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { DeleteUserPage } from "./pages/DeleteUserPage";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import { Logout } from "./components/Logout";
 
 function App() {
+  const { token } = useContext(AuthContext);
   return (
     <main className="app">
       <Header />
       <Menu />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        {token ? (
+          <Route path="/" element={<AddNewMedPage />} />
+        ) : (
+          <Route path="/" element={<HomePage />} />
+        )}
         <Route path="/NewMed" element={<AddNewMedPage />} />
         <Route path="/EditMed" element={<EditMedPage />} />
         <Route path="/FilterMed" element={<FilterMedLabPage />} />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/DeleteUser" element={<DeleteUserPage />} />
+        <Route path="/Logout" element={<Logout />} />
       </Routes>
       <Footer />
     </main>

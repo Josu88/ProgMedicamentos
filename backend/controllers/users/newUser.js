@@ -9,7 +9,7 @@ const {
   validateSchema,
 } = require("../../helpers");
 const bcrypt = require("bcrypt");
-const newMedSchema = require("../../schemas/newMedSchema");
+const newusersSchema = require("../../schemas/newusersSchema");
 
 // Declaramos la variable que establecerá lo "complicada" que encriptará la contraseña
 const saltRounds = 10;
@@ -22,7 +22,7 @@ const newUser = async (req, res, next) => {
     connection = await getDB();
 
     // Validamos los datos que recuperamos en el cuerpo de la petición con el schema de usersSchema
-    await validateSchema(newMedSchema, req.body);
+    await validateSchema(newusersSchema, req.body);
 
     // Obtenemos los campos necesarios del req.body
     const { username, email, password } = req.body;

@@ -1,10 +1,12 @@
 import "../App.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { sendMedService } from "../services";
+import { AuthContext } from "../context/AuthContext";
 
 export const NewMed = ({ newMed }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { token } = useContext(AuthContext);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -12,7 +14,7 @@ export const NewMed = ({ newMed }) => {
     try {
       setLoading(true);
       const data = new FormData(e.target);
-      const response = await sendMedService({ data });
+      const response = await sendMedService({ data, token });
 
       newMed(response);
 

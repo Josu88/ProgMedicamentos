@@ -44,6 +44,7 @@ const newMed = async (req, res, next) => {
         Composition: Composition,
         Name: Name,
         Units: Units,
+        idUser: idUserAuth,
       },
     });
   } catch (error) {

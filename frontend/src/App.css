@@ -85,6 +85,10 @@ main.app > section {
   margin: 0 auto;
 }
 
+section h1 {
+  text-align: center;
+}
+
 section h1.titleAddMed,
 h1.titleEditMed,
 h1.titleFilterMed {

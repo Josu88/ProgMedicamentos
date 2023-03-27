@@ -3,9 +3,12 @@ import { NavLink } from "react-router-dom";
 import useMeds from "../hooks/useMeds";
 import { MedList } from "../components/MedList";
 import { NewMed } from "../components/NewMed";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 export const AddNewMedPage = () => {
-  const { med, addMed } = useMeds();
+  const { token } = useContext(AuthContext);
+  const { med, addMed } = useMeds(token);
 
   return (
     <section>

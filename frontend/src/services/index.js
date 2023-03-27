@@ -24,10 +24,13 @@ export const getAllMedService = async () => {
   return json.data;
 };
 
-export const sendMedService = async ({ data }) => {
+export const sendMedService = async ({ data, token }) => {
   const response = await fetch(`${process.env.REACT_APP_BACKEND}/newMed`, {
     method: "POST",
     body: data,
+    headers: {
+      Authorization: token,
+    },
   });
 
   const json = await response.json();
@@ -54,13 +57,21 @@ export const deleteMedService = async ({ idMed }) => {
   }
 };
 
-export const editMedService = async ({ id, Lab, Composition, Name, Units }) => {
+export const editMedService = async ({
+  id,
+  Lab,
+  Composition,
+  Name,
+  Units,
+  token,
+}) => {
   const response = await fetch(
     `${process.env.REACT_APP_BACKEND}/EditMed/${id}`,
     {
       method: "PUT",
       body: JSON.stringify({ Lab, Composition, Name, Units }),
       headers: {
+        Authorization: token,
         "Content-Type": "application/json",
       },
     }
@@ -75,11 +86,14 @@ export const editMedService = async ({ id, Lab, Composition, Name, Units }) => {
   return json.data;
 };
 
-export const addUnitsService = async ({ idMed }) => {
+export const addUnitsService = async ({ idMed, token }) => {
   const response = await fetch(
     `${process.env.REACT_APP_BACKEND}/addUnits/${idMed}`,
     {
       method: "POST",
+      headers: {
+        Authorization: token,
+      },
     }
   );
 
@@ -90,11 +104,14 @@ export const addUnitsService = async ({ idMed }) => {
   }
 };
 
-export const delUnitsService = async ({ idMed }) => {
+export const delUnitsService = async ({ idMed, token }) => {
   const response = await fetch(
     `${process.env.REACT_APP_BACKEND}/delUnits/${idMed}`,
     {
       method: "POST",
+      headers: {
+        Authorization: token,
+      },
     }
   );
 

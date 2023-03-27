@@ -1,29 +1,29 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { editMedService } from "../services";
 import { NavLink } from "react-router-dom";
 import useMeds from "../hooks/useMeds";
 import { MedList } from "../components/MedList";
 import { getAllMedService } from "../services";
+import { AuthContext } from "../context/AuthContext";
 
 export const EditMedPage = () => {
   const [error, setError] = useState("");
   const [id, setId] = useState("");
   const [Lab, setLab] = useState("");
-  const [Comp, setComp] = useState("");
+  const [Composition, setComposition] = useState("");
   const [Name, setName] = useState("");
   const [Units, setUnits] = useState("");
   const [message, setMessage] = useState("");
-  const [env, setEnv] = useState(false);
-  const { med } = useMeds(env);
+  const { token } = useContext(AuthContext);
+  const { med } = useMeds(token);
 
   const handleForm = async (e) => {
     e.preventDefault();
 
     try {
       await getAllMedService();
-      await editMedService({ id, Lab, Comp, Name, Units });
+      await editMedService({ id, Lab, Composition, Name, Units, token });
       setMessage(`Se ha editado correctamente la medicina con id ${id}`);
-      setEnv(true);
     } catch (error) {
       setError(error.message);
       setMessage("");
@@ -75,9 +75,9 @@ export const EditMedPage = () => {
             type="text"
             name="comp"
             id="comp"
-            value={Comp}
+            value={Composition}
             required
-            onChange={(e) => setComp(e.target.value)}
+            onChange={(e) => setComposition(e.target.value)}
           />
         </fieldset>
 
