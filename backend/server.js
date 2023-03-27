@@ -35,6 +35,13 @@ const loginUser = require("./controllers/users/loginUser");
 const newUser = require("./controllers/users/newUser");
 const deleteUser = require("./controllers/users/deleteUser");
 
+// Middleware de validación de usuario
+const { isAuth, isUser } = require("./middlewares/isAuth");
+const canEditMed = require("./middlewares/canEditMed");
+
+// Importamos las variables de entorno que hemos creado para la conexión
+const { Port } = process.env;
+
 /*   ### Endpoints Med ###  */
 
 // Registrar nueva Medicina
@@ -65,13 +72,6 @@ app.post("/login", loginUser);
 
 // Borrar un usuario
 app.delete("/user", isUser, deleteUser);
-
-// Importamos las variables de entorno que hemos creado para la conexión
-const { Port } = process.env;
-
-// Middleware de validación de usuario
-const { isAuth, isUser } = require("./middlewares/isAuth");
-const canEditMed = require("./middlewares/canEditMed");
 
 //Middleware por el qu pasa todas las peticiones
 app.use(isAuth);

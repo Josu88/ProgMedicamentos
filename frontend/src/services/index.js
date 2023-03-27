@@ -104,3 +104,56 @@ export const delUnitsService = async ({ idMed }) => {
     throw new Error(json.message);
   }
 };
+
+export const registerUserService = async ({ username, email, password }) => {
+  const response = await fetch(`${process.env.REACT_APP_BACKEND}/register`, {
+    method: "POST",
+    body: JSON.stringify({ username, email, password }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+};
+
+export const logInUserService = async ({ email, password }) => {
+  const response = await fetch(`${process.env.REACT_APP_BACKEND}/login`, {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+
+  return json.authToken;
+};
+
+export const deleteUserService = async ({ password, token }) => {
+  const response = await fetch(`${process.env.REACT_APP_BACKEND}/user`, {
+    method: "DELETE",
+    body: JSON.stringify({ password }),
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  });
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+
+  return json.data;
+};

@@ -12,7 +12,7 @@ export const AddNewMedPage = () => {
       <NewMed newMed={addMed} />
       <h1>Lista de Medicinas</h1>
       <MedList Meds={med} />
-      <nav>
+      <nav className="ButtonHomeAM">
         <NavLink to={"/"}>HomePage</NavLink>
       </nav>
     </section>

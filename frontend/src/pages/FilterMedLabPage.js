@@ -24,7 +24,7 @@ export const FilterMedLabPage = () => {
       <h1 className="titleFilterMed">
         Lista de Medicinas filtradas por Laboratorio
       </h1>
-      <form onSubmit={handleForm} className="FormMedLab">
+      <form onSubmit={handleForm}>
         <fieldset>
           <label className="important">Laboratorio a buscar?: </label>
           <input
@@ -47,7 +47,7 @@ export const FilterMedLabPage = () => {
       ) : (
         `Pulsa el boton para ver las Medicinas`
       )}
-      <nav>
+      <nav className="ButtonHomeFLM">
         <NavLink to={"/"}>HomePage</NavLink>
       </nav>
     </section>

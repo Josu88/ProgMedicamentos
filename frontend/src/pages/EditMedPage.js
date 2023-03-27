@@ -32,7 +32,7 @@ export const EditMedPage = () => {
   return (
     <section>
       <h1 className="titleEditMed">Editar Medicina</h1>
-      <form className="edit-med" onSubmit={handleForm}>
+      <form onSubmit={handleForm}>
         <fieldset>
           <label className="important">
             Pon el id de la Medicina a modificar
@@ -116,7 +116,7 @@ export const EditMedPage = () => {
       </form>
       <h1>Lista de Medicinas</h1>
       <MedList Meds={med} />
-      <nav>
+      <nav className="ButtonHomeEM">
         <NavLink to={"/"}>HomePage</NavLink>
       </nav>
     </section>
