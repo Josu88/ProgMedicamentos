@@ -30,7 +30,8 @@ const delUnits = async (req, res, next) => {
 
     res.send({
       status: "ok",
-      message: "Se le ha Borrado una unidad del medicamento",
+      message: `Se le ha Borrado una unidad del medicamento`,
+      data: TotUnits,
     });
   } catch (error) {
     next(error);

@@ -23,6 +23,7 @@ app.use(fileUpload());
 /*   ### Controladores  Med ###  */
 
 const listMed = require("./controllers/Med/listMed");
+const listFilterMeds = require("./controllers/Med/listFilterMeds");
 const newMed = require("./controllers/Med/newMed");
 const editMed = require("./controllers/Med/editMed");
 const deleteMed = require("./controllers/Med/deleteMed");
@@ -34,33 +35,41 @@ const delUnits = require("./controllers/Med/delUnits");
 const loginUser = require("./controllers/users/loginUser");
 const newUser = require("./controllers/users/newUser");
 const deleteUser = require("./controllers/users/deleteUser");
+const userName = require("./controllers/users/userName");
+const getIdUser = require("./controllers/users/getIdUser");
 
 // Middleware de validación de usuario
-const { isAuth } = require("./middlewares/isAuth");
+const { isAuth, isUser } = require("./middlewares/isAuth");
 const canEditMed = require("./middlewares/canEditMed");
 
 // Importamos las variables de entorno que hemos creado para la conexión
 const { Port } = process.env;
 
+//Middleware por el qu pasa todas las peticiones
+app.use(isAuth);
+
 /*   ### Endpoints Med ###  */
 
 // Registrar nueva Medicina
-app.post("/newMed", isAuth, newMed);
+app.post("/newMed", isUser, newMed);
 
 // Listar todas las Medicinas
 app.get("/listMed", listMed);
 
+// Listar todas las Medicinas de un laboratorio indicado
+app.get("/listFilterMed", listFilterMeds);
+
 // Editar una Medicina
-app.put("/EditMed/:idMed", isAuth, canEditMed, editMed);
+app.put("/EditMed/:idMed", isUser, canEditMed, editMed);
 
 // Borrar una Medicina
 app.delete("/DelMed/:idMed", deleteMed);
 
 // Añadir una unidad a la medicina
-app.post("/addUnits/:idMed", isAuth, addUnits);
+app.post("/addUnits/:idMed", isUser, addUnits);
 
 // Borrar una unidad de la medicina
-app.post("/delUnits/:idMed", isAuth, delUnits);
+app.post("/delUnits/:idMed", isUser, delUnits);
 
 /*   ### Endpoints Users ###  */
 
@@ -71,7 +80,13 @@ app.post("/register", newUser);
 app.post("/login", loginUser);
 
 // Borrar un usuario
-app.delete("/user", isAuth, deleteUser);
+app.delete("/user", isUser, deleteUser);
+
+// Mostrar nombre de usuario
+app.get("/user/username", isUser, userName);
+
+// Mostrar id de usuario
+app.get("/user/id", isUser, getIdUser);
 
 /*   ### Middlewares ###  */
 

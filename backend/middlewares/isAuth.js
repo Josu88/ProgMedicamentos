@@ -60,4 +60,9 @@ const isAuth = async (req, res, next) => {
   }
 };
 
-module.exports = { isAuth };
+const isUser = (req, res, next) => {
+  if (req.userAuth) return next();
+  throw generateError("¡No puedes continuar!", 401);
+};
+
+module.exports = { isAuth, isUser };

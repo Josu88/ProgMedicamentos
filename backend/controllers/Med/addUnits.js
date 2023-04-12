@@ -30,7 +30,8 @@ const addUnits = async (req, res, next) => {
 
     res.send({
       status: "ok",
-      message: "Se le ha Añadido una unidad del medicamento",
+      message: `Se le ha Añadido una unidad del medicamento`,
+      data: TotUnits,
     });
   } catch (error) {
     next(error);

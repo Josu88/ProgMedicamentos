@@ -8,13 +8,19 @@ import { AuthContext } from "../context/AuthContext";
 
 export const AddNewMedPage = () => {
   const { token } = useContext(AuthContext);
-  const { med, addMed } = useMeds(token);
+
+  const { med, addMed, addUnit, remUnit, removeMed } = useMeds(token);
 
   return (
     <section>
       <NewMed newMed={addMed} />
       <h1>Lista de Medicinas</h1>
-      <MedList Meds={med} />
+      <MedList
+        Meds={med}
+        addUnit={addUnit}
+        remUnit={remUnit}
+        removeMed={removeMed}
+      />
       <nav className="ButtonHomeAM">
         <NavLink to={"/"}>HomePage</NavLink>
       </nav>

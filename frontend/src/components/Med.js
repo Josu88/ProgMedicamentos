@@ -1,5 +1,4 @@
 import "../App.css";
-import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import {
   deleteMedService,
@@ -8,36 +7,35 @@ import {
 } from "../services";
 import { AuthContext } from "../context/AuthContext";
 
-export const Med = ({ Med }) => {
+export const Med = ({ Med, addUnit, remUnit, removeMed }) => {
   const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const { token } = useContext(AuthContext);
+  const { token, idUser } = useContext(AuthContext);
 
   const deleteMed = async ({ idMed }) => {
     try {
       await deleteMedService({ idMed });
-
-      navigate("/NewMed");
+      removeMed(idMed);
+      //window.location.reload(true);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  const addUnit = async ({ idMed, token }) => {
+  const addUnits = async ({ idMed, token }) => {
     try {
       await addUnitsService({ idMed, token });
-
-      navigate("/NewMed");
+      addUnit(idMed);
+      //window.location.reload(true);
     } catch (error) {
       setError(error.message);
     }
   };
 
-  const delUnit = async ({ idMed, token }) => {
+  const delUnits = async ({ idMed, token }) => {
     try {
       await delUnitsService({ idMed, token });
-
-      navigate("/NewMed");
+      remUnit(idMed);
+      //window.location.reload(true);
     } catch (error) {
       setError(error.message);
     }
@@ -53,7 +51,7 @@ export const Med = ({ Med }) => {
           <p>Composition: {Med.Composition}</p>
           <p>Name: {Med.Name}</p>
           <p>Units: {Med.Units}</p>
-          {token ? (
+          {token && Med.idUser === Number(idUser) ? (
             <span className="ButtonBar">
               <button
                 className="DelButton"
@@ -66,7 +64,7 @@ export const Med = ({ Med }) => {
               <button
                 className="addUnitButton"
                 onClick={() => {
-                  addUnit({ idMed, token });
+                  addUnits({ idMed, token });
                 }}
               >
                 +
@@ -74,13 +72,17 @@ export const Med = ({ Med }) => {
               <button
                 className="delUnitButton"
                 onClick={() => {
-                  delUnit({ idMed, token });
+                  delUnits({ idMed, token });
                 }}
               >
                 -
               </button>
             </span>
-          ) : null}
+          ) : (
+            <span className="ButtonBlock">
+              <p>Botones bloqueados para este usuario</p>
+            </span>
+          )}
           {error ? <p className="MenError">{error}</p> : null}
         </article>
       </li>

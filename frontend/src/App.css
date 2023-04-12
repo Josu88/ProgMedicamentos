@@ -128,8 +128,6 @@ main.app > section h1 {
 
 ul.Med-list li {
   width: 30rem;
-  background-color: #000;
-  border: 1px solid #000;
   text-align: center;
   list-style: none;
   color: #fff;
@@ -139,6 +137,7 @@ article.Medicines {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  border: 1px solid #000;
   background-color: goldenrod;
   color: #000;
 }
@@ -179,4 +178,10 @@ span.ButtonBar Button.DelButton {
 span.ButtonBar Button.addUnitButton,
 Button.delUnitButton {
   width: 2rem;
+}
+
+span.ButtonBlock {
+  background-color: ghostwhite;
+  color: crimson;
+  justify-content: center;
 }

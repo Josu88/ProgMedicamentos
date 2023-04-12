@@ -6,7 +6,7 @@ import { MedList } from "../components/MedList";
 
 export const FilterMedLabPage = () => {
   const [Lab, setLab] = useState([]);
-  const { med } = useFilterMeds(Lab);
+  const { med, addUnit, remUnit, removeMed } = useFilterMeds(Lab);
   const [visible, setVisible] = useState(false);
   const [error, setError] = useState("");
 
@@ -43,7 +43,12 @@ export const FilterMedLabPage = () => {
       </form>
       <h1>Lista de Medicinas</h1>
       {visible ? (
-        <MedList Meds={med} />
+        <MedList
+          Meds={med}
+          addUnit={addUnit}
+          remUnit={remUnit}
+          removeMed={removeMed}
+        />
       ) : (
         `Pulsa el boton para ver las Medicinas`
       )}

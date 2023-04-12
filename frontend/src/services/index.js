@@ -1,6 +1,6 @@
 export const getFilterLabMedService = async (Lab) => {
   const response = await fetch(
-    `${process.env.REACT_APP_BACKEND}/listMed?Lab=${Lab}`
+    `${process.env.REACT_APP_BACKEND}/listFilterMed?Lab=${Lab}`
   );
 
   const json = await response.json();
@@ -14,6 +14,55 @@ export const getFilterLabMedService = async (Lab) => {
 
 export const getAllMedService = async () => {
   const response = await fetch(`${process.env.REACT_APP_BACKEND}/listMed`);
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+
+  return json.data;
+};
+
+export const getMedService = async () => {
+  const response = await fetch(`${process.env.REACT_APP_BACKEND}/listMed`);
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+
+  return json.data;
+};
+
+export const listUserNameService = async (token) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BACKEND}/user/username`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+
+  const json = await response.json();
+
+  if (!response.ok) {
+    throw new Error(json.message);
+  }
+
+  return json.data;
+};
+
+export const listIdUserService = async (token) => {
+  const response = await fetch(`${process.env.REACT_APP_BACKEND}/user/id`, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  });
 
   const json = await response.json();
 
@@ -102,6 +151,7 @@ export const addUnitsService = async ({ idMed, token }) => {
   if (!response.ok) {
     throw new Error(json.message);
   }
+  return json;
 };
 
 export const delUnitsService = async ({ idMed, token }) => {

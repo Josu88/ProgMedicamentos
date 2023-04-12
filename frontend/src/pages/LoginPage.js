@@ -1,12 +1,16 @@
 import { useContext, useState } from "react";
-import { logInUserService } from "../services";
+import {
+  logInUserService,
+  listUserNameService,
+  listIdUserService,
+} from "../services";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { setToken } = useContext(AuthContext);
+  const { setToken, setUser, setIdUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -17,8 +21,14 @@ export const LoginPage = () => {
 
     try {
       const loginToken = await logInUserService({ email, password });
+      const { userName } = await listUserNameService(loginToken);
+      const { iduser } = await listIdUserService(loginToken);
 
       setToken(loginToken);
+      setUser(userName[0].username);
+      setIdUser(iduser[0].id);
+      localStorage.setItem("user", userName[0].username);
+      localStorage.setItem("iduser", iduser[0].id);
 
       setMessage("Te has logeado correctamente");
 
