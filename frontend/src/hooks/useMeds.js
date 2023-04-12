@@ -48,7 +48,13 @@ const useMeds = (token) => {
     setMed([data, ...med]);
   };
 
-  return { med, error, loading, addMed, addUnit, remUnit, removeMed };
+  const editMed = (id, lab) => {
+    const index = med.findIndex((newObject) => newObject.id === id);
+    med[index].Lab = lab;
+    setMed([...med]);
+  };
+
+  return { med, error, loading, addMed, addUnit, remUnit, removeMed, editMed };
 };
 
 export default useMeds;

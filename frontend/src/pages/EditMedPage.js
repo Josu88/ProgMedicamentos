@@ -1,8 +1,6 @@
 import { useState, useContext } from "react";
 import { editMedService } from "../services";
 import { NavLink } from "react-router-dom";
-import useMeds from "../hooks/useMeds";
-import { MedList } from "../components/MedList";
 import { getAllMedService } from "../services";
 import { AuthContext } from "../context/AuthContext";
 
@@ -15,7 +13,6 @@ export const EditMedPage = () => {
   const [Units, setUnits] = useState("");
   const [message, setMessage] = useState("");
   const { token } = useContext(AuthContext);
-  const { med, addUnit, remUnit, removeMed } = useMeds(token);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -114,13 +111,6 @@ export const EditMedPage = () => {
         {error ? <p>{error}</p> : null}
         <p>{message}</p>
       </form>
-      <h1>Lista de Medicinas</h1>
-      <MedList
-        Meds={med}
-        addUnit={addUnit}
-        remUnit={remUnit}
-        removeMed={removeMed}
-      />
       <nav className="ButtonHomeEM">
         <NavLink to={"/"}>HomePage</NavLink>
       </nav>
