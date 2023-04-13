@@ -17,14 +17,14 @@ const addUnits = async (req, res, next) => {
 
     // Comprobamos las unidades de la medicina
     const [units] = await connection.query(
-      `SELECT Units FROM medicinas WHERE id = ? AND idUser = ?`,
+      `SELECT Units FROM Medicinas WHERE id = ? AND idUser = ?`,
       [idMed, idUserAuth]
     );
 
     const TotUnits = units[0].Units + 1;
 
     await connection.query(
-      ` UPDATE medicinas SET Units = ? WHERE id = ? AND idUser = ?`,
+      ` UPDATE Medicinas SET Units = ? WHERE id = ? AND idUser = ?`,
       [TotUnits, idMed, idUserAuth]
     );
 
